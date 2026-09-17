@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* Force a fixed light/warm theme: `dark:` utilities only activate under
+   a `.dark` class, which this site never adds, so system dark mode is
+   ignored and the warm cream look always shows. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf6ef;
+  --foreground: #211a12;
 }
 
 @theme inline {
@@ -12,15 +17,40 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --chart-surface: #fffaf2;
+  --series-1: #c17f2a;
+  --series-2: #b3502c;
+  --series-3: #8a7a1f;
+  --text-secondary: #5c5248;
+  --text-muted: #948572;
+  --chart-grid: #e9ddc8;
+  --chart-axis: #cbb99a;
+  --delta-up: #d03b3b;
+  --delta-down: #1f7a1f;
+  --status-error: #b3261e;
+  --status-success: #1f7a1f;
+
+  --panel-bg: #fffdf9;
+  --panel-border: rgba(90, 62, 20, 0.1);
+  --panel-shadow: 0 1px 2px rgba(90, 62, 20, 0.04),
+    0 14px 32px -16px rgba(90, 62, 20, 0.14);
 }
 
 body {
   background: var(--background);
+  background-image: radial-gradient(
+    ellipse 900px 500px at 50% -10%,
+    color-mix(in srgb, var(--series-1) 10%, transparent),
+    transparent
+  );
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 1rem;
+  box-shadow: var(--panel-shadow);
 }
